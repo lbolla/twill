@@ -11,7 +11,8 @@ included with the distribution).
 
 """
 
-import re, base64, urlparse, posixpath, md5, sha, sys, copy
+import re, base64, urlparse, posixpath, sys, copy
+from hashlib import md5, sha1 as sha
 
 from urllib2 import BaseHandler
 from urllib import getproxies, unquote, splittype, splituser, splitpasswd, \
@@ -338,7 +339,7 @@ class AbstractDigestAuthHandler:
         # and server to avoid chosen plaintext attacks, to provide mutual
         # authentication, and to provide some message integrity protection.
         # This isn't a fabulous effort, but it's probably Good Enough.
-        dig = sha.new("%s:%s:%s:%s" % (self.nonce_count, nonce, time.ctime(),
+        dig = sha("%s:%s:%s:%s" % (self.nonce_count, nonce, time.ctime(),
                                        randombytes(8))).hexdigest()
         return dig[:16]
 
@@ -403,7 +404,7 @@ class AbstractDigestAuthHandler:
         if algorithm == 'MD5':
             H = lambda x: md5.new(x).hexdigest()
         elif algorithm == 'SHA':
-            H = lambda x: sha.new(x).hexdigest()
+            H = lambda x: sha(x).hexdigest()
         # XXX MD5-sess
         KD = lambda s, d: H("%s:%s" % (s, d))
         return H, KD

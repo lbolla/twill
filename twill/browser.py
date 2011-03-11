@@ -154,6 +154,14 @@ class TwillBrowser(object):
             return self.result.get_page()
         return None
 
+    def get_headers(self):
+        """
+        Get the headers for the current page.
+        """
+        if self.result:
+            return self.result.get_headers()
+        return None
+
     def get_title(self):
         """
         Get content of the HTML title element for the current page.
@@ -539,7 +547,7 @@ There are %d cookie(s) in the cookiejar.
 infinite refresh loop discovered; aborting.
 Try turning off acknowledge_equiv_refresh...""")
 
-        self.result = ResultWrapper(code, r.geturl(), r.read())
+        self.result = ResultWrapper(code, r.geturl(), r.read(), r.info())
 
         #
         # Now call all of the post load hooks with the function name.

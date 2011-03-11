@@ -4,6 +4,7 @@
 # available at http://twill.idyll.org/.
 #
 # Contact author: C. Titus Brown, titus@idyll.org.
+# Modified by: Lorenzo Bolla <lbolla@gmail.com>
 #
 # This program and all associated source code files are Copyright (C)
 # 2005-2007 by C. Titus Brown.  It is released under the MIT license;
@@ -14,7 +15,8 @@
 twill Web testing language & associated utilities.
 """
 
-__version__ = "0.9"
+__version__ = "0.9.1"
+__modified_by__ = "Lorenzo Bolla <lbolla@gmail.com>"
 
 #import warnings
 #warnings.defaultaction = "error"

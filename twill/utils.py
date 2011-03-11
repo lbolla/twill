@@ -22,13 +22,14 @@ class ResultWrapper:
     Deal with mechanize/urllib2/whatever results, and present them in a
     unified form.  Returned by 'journey'-wrapped functions.
     """
-    def __init__(self, http_code, url, page):
+    def __init__(self, http_code, url, page, info):
         if http_code is not None:
             self.http_code = int(http_code)
         else:
             self.http_code = 200
         self.url = url
         self.page = page
+        self.info = info
 
     def get_url(self):
         return self.url
@@ -38,6 +39,11 @@ class ResultWrapper:
 
     def get_page(self):
         return self.page
+
+    def get_headers(self):
+        def parse_header(h):
+            return tuple(f.strip() for f in h.split(':'))
+        return map(parse_header, self.info.headers)
 
 def trunc(s, length):
     """

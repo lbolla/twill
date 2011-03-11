@@ -277,6 +277,16 @@ def show():
     print>>OUT, html
     return html
 
+def show_headers():
+    """
+    >> show
+    
+    Show the HTML for the current page.
+    """
+    headers = browser.get_headers()
+    print>>OUT, headers
+    return headers
+
 def echo(*strs):
     """
     >> echo <list> <of> <strings>
