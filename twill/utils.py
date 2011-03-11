@@ -43,7 +43,7 @@ class ResultWrapper:
     def get_headers(self):
         def parse_header(h):
             return tuple(f.strip() for f in h.split(':'))
-        return map(parse_header, self.info.headers)
+        return dict(map(parse_header, self.info.headers))
 
 def trunc(s, length):
     """

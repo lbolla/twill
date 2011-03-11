@@ -20,6 +20,7 @@ __all__ = ['get_browser',
            'reload',
            'url',
            'code',
+           'header',
            'follow',
            'find',
            'notfind',
@@ -127,10 +128,22 @@ def code(should_be):
     
     Check to make sure the response code for the last page is as given.
     """
-    should_be = int(should_be)
     if browser.get_code() != int(should_be):
         raise TwillAssertionError("code is %s != %s" % (browser.get_code(),
                                                         should_be))
+
+def header(name, should_be):
+    """
+    >> header <name> <value>
+    
+    Check to make sure the header <name> for the last page is as given.
+    """
+    headers = browser.get_headers()
+    if not headers.has_key(name):
+        raise TwillAssertionError("missing header %s" % name)
+
+    if headers[name] != should_be:
+        raise TwillAssertionError("header %s is %s != %s" % (name, headers[name], should_be))
 
 def tidy_ok():
     """
