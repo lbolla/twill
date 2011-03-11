@@ -12,7 +12,11 @@ included with the distribution).
 """
 
 import re, base64, urlparse, posixpath, sys, copy
-from hashlib import md5, sha1 as sha
+try:
+    from hashlib import md5, sha1 as sha
+except ImportError:
+    from md5 import new as md5
+    from sha import new as sha
 
 from urllib2 import BaseHandler
 from urllib import getproxies, unquote, splittype, splituser, splitpasswd, \
@@ -402,7 +406,7 @@ class AbstractDigestAuthHandler:
     def get_algorithm_impls(self, algorithm):
         # lambdas assume digest modules are imported at the top level
         if algorithm == 'MD5':
-            H = lambda x: md5.new(x).hexdigest()
+            H = lambda x: md5(x).hexdigest()
         elif algorithm == 'SHA':
             H = lambda x: sha(x).hexdigest()
         # XXX MD5-sess
